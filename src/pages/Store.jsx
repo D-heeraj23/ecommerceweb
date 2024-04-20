@@ -51,7 +51,7 @@ const Store = () => {
                 <p className="text-gray-700">Price :{item.price}</p>
               </div>
               <div>
-                <button className="bg-slate-800 p-2 rounded text-white">
+                <button className="bg-slate-800 p-2 rounded-md text-white">
                   Add to cart
                 </button>
               </div>
