@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import CartContext from "../context/CartContext";
+
 const Navbar = () => {
+  const { openCart, isCartOpen } = useContext(CartContext);
+
+  const cartHandler = () => {
+    openCart();
+  };
+
+  console.log(openCart);
   return (
     <div className="bg-zinc-800 text-white flex items-center justify-around p-4">
       <div>
@@ -16,7 +26,7 @@ const Navbar = () => {
           <Link to="/about">About</Link>
         </li>
       </ul>
-      <div>cart</div>
+      <button onClick={cartHandler}>{isCartOpen ? "X" : "Cart"}</button>
     </div>
   );
 };
