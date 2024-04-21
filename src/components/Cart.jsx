@@ -1,50 +1,36 @@
-const productsArr = [
-  {
-    title: "Colors",
-
-    price: 100,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-  },
-
-  {
-    title: "Black and white Colors",
-
-    price: 50,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-  },
-
-  {
-    title: "Yellow and Black Colors",
-
-    price: 70,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-  },
-
-  {
-    title: "Blue Color",
-
-    price: 100,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
-  },
-];
+import CartContext from "../context/CartContext";
+import { useContext } from "react";
 
 const Cart = () => {
+  const { cart, removeFromCart } = useContext(CartContext);
+
+  console.log(cart);
+
   return (
     <div className="w-1/4 h-screen p bg-slate-300 absolute top-15 right-0 z-10">
+      <div className="flex justify-center">
+        {cart.length === 0 && "Cart is Empty"}
+      </div>
       <div>
-        {productsArr.map((items, i) => (
-          <div className="flex justify-around items-center">
+        {cart.map((items, i) => (
+          <div className="flex justify-around items-center" key={i}>
             <div className="w-1/4 mt-10">
               <img src={items.imageUrl} alt="cartimage" />
             </div>
             <div className="w-1/2">
               <p>Name:{items.title}</p>
               <p>Price:{items.price}</p>
-              <p>Quantity:1</p>
+              <p> quantity:{items.quantity}</p>
+              <button
+                className="bg-red-500 p-1 rounded-md"
+                onClick={() => removeFromCart(items.id)}
+              >
+                Remove
+              </button>
+              <div
+                className="w-full bg-zinc-900"
+                style={{ height: "1px" }}
+              ></div>
             </div>
           </div>
         ))}

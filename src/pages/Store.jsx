@@ -1,5 +1,10 @@
+import { useContext } from "react";
+import CartContext from "../context/CartContext";
+
 const productsArr = [
   {
+    id: "1",
+
     title: "Colors",
 
     price: 100,
@@ -8,6 +13,8 @@ const productsArr = [
   },
 
   {
+    id: "2",
+
     title: "Black and white Colors",
 
     price: 50,
@@ -16,6 +23,8 @@ const productsArr = [
   },
 
   {
+    id: "3",
+
     title: "Yellow and Black Colors",
 
     price: 70,
@@ -24,6 +33,8 @@ const productsArr = [
   },
 
   {
+    id: "4",
+
     title: "Blue Color",
 
     price: 100,
@@ -33,6 +44,8 @@ const productsArr = [
 ];
 
 const Store = () => {
+  const { addToCart } = useContext(CartContext);
+
   return (
     <>
       <div className="bg-gray-500 p-8">
@@ -51,7 +64,10 @@ const Store = () => {
                 <p className="text-gray-700">Price :{item.price}</p>
               </div>
               <div>
-                <button className="bg-slate-800 p-2 rounded-md text-white">
+                <button
+                  className="bg-slate-800 p-2 rounded-md text-white"
+                  onClick={() => addToCart(item)}
+                >
                   Add to cart
                 </button>
               </div>

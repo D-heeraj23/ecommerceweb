@@ -9,7 +9,6 @@ const Navbar = () => {
     openCart();
   };
 
-  console.log(openCart);
   return (
     <div className="bg-zinc-800 text-white flex items-center justify-around p-4">
       <div>
