@@ -9,19 +9,7 @@ const CartContextProvider = (props) => {
     setIsCartOpen((prev) => !prev);
   };
 
-  const addToCart = (item) => {
-    const existingItemIndex = cart.findIndex(
-      (cartItem) => cartItem.id === item.id
-    );
-
-    if (existingItemIndex !== -1) {
-      const updatedCart = [...cart];
-      updatedCart[existingItemIndex].quantity += 1;
-      setCart(updatedCart);
-    } else {
-      setCart((prev) => [...prev, { ...item, quantity: 1 }]);
-    }
-  };
+  const addToCart = (item) => {};
 
   const removeFromCart = (itemId) => {
     const updatedCart = cart.filter((item) => item.id !== itemId);

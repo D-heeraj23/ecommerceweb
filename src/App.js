@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Layout from "./components/Layout";
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -9,9 +9,14 @@ import CartContext from "./context/CartContext";
 
 function App() {
   const { isCartOpen } = useContext(CartContext);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleAddToCart = () => {
+    setRefresh((prev) => !prev);
+  };
   return (
     <Layout>
-      {isCartOpen && <Cart />}
+      {isCartOpen && <Cart refresh={refresh} />}
       <Route path={"/about"}>
         <About />
       </Route>
@@ -19,7 +24,7 @@ function App() {
         <Home />
       </Route>
       <Route path={"/store"}>
-        <Store />
+        <Store onClick={handleAddToCart} />
       </Route>
     </Layout>
   );

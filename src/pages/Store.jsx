@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import CartContext from "../context/CartContext";
-
 const productsArr = [
   {
     id: "1",
@@ -34,7 +31,6 @@ const productsArr = [
 
   {
     id: "4",
-
     title: "Blue Color",
 
     price: 100,
@@ -43,12 +39,30 @@ const productsArr = [
   },
 ];
 
-const Store = () => {
-  const { addToCart } = useContext(CartContext);
+const Store = (props) => {
+  const addToCart = async (item) => {
+    try {
+      const response = await fetch(
+        "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json",
+        {
+          method: "POST",
+          body: JSON.stringify(item),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      props.onClick();
+    }
+  };
 
   return (
     <>
-      <div className="bg-gray-500 p-8">
+      <div className="bg-gray-500 p-8 mt-10">
         <h1 className="text-6xl font-bold text-center text-white">
           The Generics
         </h1>
@@ -66,7 +80,7 @@ const Store = () => {
               <div>
                 <button
                   className="bg-slate-800 p-2 rounded-md text-white"
-                  onClick={() => addToCart(item)}
+                  onClick={() => addToCart(item)} // item has id ,title ,imageurl,price which is from dummy array
                 >
                   Add to cart
                 </button>

@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-zinc-800 text-white flex items-center justify-around p-4">
+    <div className="bg-zinc-800 text-white flex items-center justify-around p-4 w-full fixed top-0">
       <div>
         <h1>Ecommerce Store</h1>
       </div>
