@@ -24,6 +24,9 @@ const Navbar = () => {
         <li>
           <Link to="/about">About</Link>
         </li>
+        <li>
+          <Link to="/contactus">ContactUs</Link>
+        </li>
       </ul>
       <button onClick={cartHandler}>{isCartOpen ? "X" : "Cart"}</button>
     </div>

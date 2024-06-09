@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Store from "./pages/Store";
 import Cart from "./components/Cart";
 import CartContext from "./context/CartContext";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   const { isCartOpen } = useContext(CartContext);
@@ -25,6 +26,9 @@ function App() {
       </Route>
       <Route path={"/store"}>
         <Store onClick={handleAddToCart} />
+      </Route>
+      <Route path={"/contactus"}>
+        <ContactUs />
       </Route>
     </Layout>
   );
