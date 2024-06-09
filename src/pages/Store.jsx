@@ -43,15 +43,56 @@ const Store = (props) => {
   const addToCart = async (item) => {
     try {
       const response = await fetch(
-        "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json",
-        {
-          method: "POST",
-          body: JSON.stringify(item),
-        }
+        "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json"
       );
-
       if (!response.ok) {
         throw new Error("something went wrong");
+      }
+      const data = await response.json();
+      let itemExists = false;
+      let existingItemKey = null;
+
+      // Check if item already exists in the cart
+      for (const key in data) {
+        if (data[key].id === item.id) {
+          itemExists = true;
+          existingItemKey = key;
+          break;
+        }
+      }
+
+      if (itemExists && existingItemKey) {
+        // Update the quantity of the existing item
+        const updatedItem = {
+          ...data[existingItemKey],
+          quantity: data[existingItemKey].quantity + 1,
+        };
+        const updateResponse = await fetch(
+          `https://ecommerce-26aad-default-rtdb.firebaseio.com/items/${existingItemKey}.json`,
+          {
+            method: "PUT",
+            body: JSON.stringify(updatedItem),
+          }
+        );
+        if (!updateResponse.ok) {
+          throw new Error("something went wrong");
+        }
+      } else {
+        // Add a new item to the cart
+        const itemWithQuantity = {
+          ...item,
+          quantity: 1, // Hardcoded quantity
+        };
+        const addResponse = await fetch(
+          "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json",
+          {
+            method: "POST",
+            body: JSON.stringify(itemWithQuantity),
+          }
+        );
+        if (!addResponse.ok) {
+          throw new Error("something went wrong");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -77,6 +118,7 @@ const Store = (props) => {
                 <p className="font-bold">{item.title}</p>
                 <p className="text-gray-700">Price :{item.price}</p>
               </div>
+              <div></div>
               <div>
                 <button
                   className="bg-slate-800 p-2 rounded-md text-white"

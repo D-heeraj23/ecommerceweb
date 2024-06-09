@@ -22,6 +22,7 @@ const Cart = ({ refresh }) => {
             id: data[key].id,
             title: data[key].title,
             price: data[key].price,
+            quantity: data[key].quantity,
             imageUrl: data[key].imageUrl,
           });
         }
