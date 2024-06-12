@@ -1,3 +1,8 @@
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
+import { SyncLoader } from "react-spinners";
+
 const productsArr = [
   {
     id: "1",
@@ -40,7 +45,15 @@ const productsArr = [
 ];
 
 const Store = (props) => {
+  const [loadingStates, setLoadingStates] = useState({});
+
+  const notify = () => toast.success("added to cart");
   const addToCart = async (item) => {
+    setLoadingStates((prevState) => ({
+      ...prevState,
+      [item.id]: true,
+    }));
+
     try {
       const response = await fetch(
         "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json"
@@ -98,11 +111,17 @@ const Store = (props) => {
       console.log(error);
     } finally {
       props.onClick();
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [item.id]: false,
+      }));
+      notify();
     }
   };
 
   return (
     <>
+      <ToastContainer position="top-center" autoClose={2000} />
       <div className="bg-gray-500 p-8 mt-10">
         <h1 className="text-6xl font-bold text-center text-white">
           The Generics
@@ -118,13 +137,18 @@ const Store = (props) => {
                 <p className="font-bold">{item.title}</p>
                 <p className="text-gray-700">Price :{item.price}</p>
               </div>
-              <div></div>
               <div>
                 <button
-                  className="bg-slate-800 p-2 rounded-md text-white"
+                  className="bg-slate-800 p-2 rounded-md text-white w-48 h-14"
                   onClick={() => addToCart(item)} // item has id ,title ,imageurl,price which is from dummy array
                 >
-                  Add to cart
+                  {loadingStates[item.id] ? (
+                    <div className="flex items center justify-center">
+                      <SyncLoader />
+                    </div>
+                  ) : (
+                    "Add to cart"
+                  )}
                 </button>
               </div>
             </div>
