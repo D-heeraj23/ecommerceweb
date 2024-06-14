@@ -40,7 +40,7 @@ const Cart = ({ refresh }) => {
   }, [refresh]);
 
   return (
-    <div className="w-1/4 h-screen p bg-slate-300 fixed top-15 right-0 z-10 mt-4">
+    <div className="w-1/4 h-screen bg-zinc-50 fixed top-[3.6rem] right-0 z-10 mt-4">
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <SyncLoader />
@@ -48,7 +48,12 @@ const Cart = ({ refresh }) => {
       ) : (
         <div>
           <div className="flex justify-center">
-            {cart.length === 0 && "Cart is Empty"}
+            {cart.length === 0 && (
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png"
+                className="w-[50%] mt-32"
+              />
+            )}
           </div>
           <div>
             {cart.map((items, i) => (

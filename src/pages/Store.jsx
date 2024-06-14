@@ -2,6 +2,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { SyncLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 const productsArr = [
   {
@@ -132,7 +133,13 @@ const Store = (props) => {
           return (
             <div key={i} className="flex flex-col items-center mb-4">
               <p className="font-bold">Album {i + 1}</p>
-              <img src={item.imageUrl} alt="product" className="mb-2" />
+              <Link to={`/store/product-detail/${item.id}`}>
+                <img
+                  src={item.imageUrl}
+                  alt="product"
+                  className="mb-2 rounded-xl hover:rounded-none"
+                />
+              </Link>
               <div className="text-center">
                 <p className="font-bold">{item.title}</p>
                 <p className="text-gray-700">Price :{item.price}</p>
@@ -144,7 +151,7 @@ const Store = (props) => {
                 >
                   {loadingStates[item.id] ? (
                     <div className="flex items center justify-center">
-                      <SyncLoader />
+                      <SyncLoader color="white" />
                     </div>
                   ) : (
                     "Add to cart"

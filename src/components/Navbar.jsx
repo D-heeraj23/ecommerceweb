@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
+import classes from "./Navbar.module.css";
 
 const Navbar = () => {
   const { openCart, isCartOpen } = useContext(CartContext);
@@ -16,19 +17,32 @@ const Navbar = () => {
       </div>
       <ul className="flex gap-10">
         <li>
-          <Link to="/home">Home</Link>
+          <NavLink to="/home" activeClassName={classes.active}>
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to="/store">Store</Link>
+          <NavLink to="/store" activeClassName={classes.active}>
+            Store
+          </NavLink>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <NavLink to="/about" activeClassName={classes.active}>
+            About
+          </NavLink>
         </li>
         <li>
-          <Link to="/contactus">ContactUs</Link>
+          <NavLink to="/contactus" activeClassName={classes.active}>
+            ContactUs
+          </NavLink>
         </li>
       </ul>
-      <button onClick={cartHandler}>{isCartOpen ? "X" : "Cart"}</button>
+      <button
+        onClick={cartHandler}
+        className="border p-2 w-20 rounded-full hover:bg-black"
+      >
+        {isCartOpen ? "X" : "Cart"}
+      </button>
     </div>
   );
 };

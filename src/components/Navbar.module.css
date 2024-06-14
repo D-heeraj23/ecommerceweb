@@ -1,0 +1,8 @@
+.active {
+  color: rgb(39, 39, 42);
+  border-bottom: 4px solid rgb(111, 50, 167);
+  background-color: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
+  font-weight: bolder;
+}
