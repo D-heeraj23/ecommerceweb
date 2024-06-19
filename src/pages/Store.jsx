@@ -51,11 +51,13 @@ const Store = (props) => {
   const notify = () => toast.success("added to cart");
   const addToCart = async (item) => {
     setLoadingStates((prevState) => ({
+      //for individual button loading state
       ...prevState,
       [item.id]: true,
     }));
 
     try {
+      //this part is for if the product already exist in the firbase and to increase the quantity
       const response = await fetch(
         "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json"
       );
@@ -92,11 +94,13 @@ const Store = (props) => {
           throw new Error("something went wrong");
         }
       } else {
-        // Add a new item to the cart
+        //this else part is for if there is no product on firebase its gonna add a new product
         const itemWithQuantity = {
+          // Add a new key value quantity to the product array
           ...item,
           quantity: 1, // Hardcoded quantity
         };
+
         const addResponse = await fetch(
           "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json",
           {
@@ -133,7 +137,7 @@ const Store = (props) => {
           return (
             <div key={i} className="flex flex-col items-center mb-4">
               <p className="font-bold">Album {i + 1}</p>
-              <Link to={`/store/product-detail/${item.id}`}>
+              <Link to={`/store/product-detail/${item.title}`}>
                 <img
                   src={item.imageUrl}
                   alt="product"

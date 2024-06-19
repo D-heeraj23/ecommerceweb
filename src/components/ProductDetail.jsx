@@ -40,7 +40,7 @@ const productsArr = [
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = productsArr.find((product) => product.id === id);
+  const product = productsArr.find((product) => product.title === id);
   return (
     <div className="w-full h-screen bg-zinc-300 flex items-center justify-center">
       <div className="w-3/4 h-3/4 flex items-center justify-around bg-blue-500 p-9 rounded-lg">
