@@ -1,11 +1,9 @@
-// import CartContext from "../context/CartContext";
-// import { useContext } from "react";
 import React, { useState, useEffect } from "react";
 import { SyncLoader } from "react-spinners";
 
 const Cart = ({ refresh }) => {
-  // const { cart, removeFromCart } = useContext(CartContext);
   const [cart, setCart] = useState([]);
+  const [reff, setReff] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,6 +20,7 @@ const Cart = ({ refresh }) => {
         const loadedProduct = [];
         for (const key in data) {
           loadedProduct.push({
+            key,
             id: data[key].id,
             title: data[key].title,
             price: data[key].price,
@@ -37,7 +36,26 @@ const Cart = ({ refresh }) => {
       }
     };
     fetchCartData();
-  }, [refresh]);
+  }, [refresh, reff]);
+
+  const removeDataHandler = async (key) => {
+    try {
+      const response = await fetch(
+        `https://ecommerce-26aad-default-rtdb.firebaseio.com/items/${key}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      setReff((prev) => !prev);
+
+      if (!response.ok) {
+        throw new Error("cant delete");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="w-1/4 h-screen bg-zinc-50 fixed top-[3.6rem] right-0 z-10 mt-4">
@@ -67,7 +85,7 @@ const Cart = ({ refresh }) => {
                   <p> quantity:{items.quantity}</p>
                   <button
                     className="bg-red-500 p-1 rounded-md"
-                    // onClick={() => removeFromCart(items.id)}
+                    onClick={() => removeDataHandler(items.key)}
                   >
                     Remove
                   </button>
