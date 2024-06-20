@@ -2,12 +2,21 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
 import classes from "./Navbar.module.css";
+import AuthContext from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const Navbar = () => {
   const { openCart, isCartOpen } = useContext(CartContext);
+  const { logoutHandler } = useContext(AuthContext);
+  const history = useHistory();
 
   const cartHandler = () => {
     openCart();
+  };
+
+  const logoutButtonHandler = () => {
+    logoutHandler();
+    history.replace("/");
   };
 
   return (
@@ -37,12 +46,20 @@ const Navbar = () => {
           </NavLink>
         </li>
       </ul>
-      <button
-        onClick={cartHandler}
-        className="border p-2 w-20 rounded-full hover:bg-black"
-      >
-        {isCartOpen ? "X" : "Cart"}
-      </button>
+      <div className="space-x-5">
+        <button
+          onClick={cartHandler}
+          className="border p-2 w-20 rounded-full hover:bg-black"
+        >
+          {isCartOpen ? "X" : "Cart"}
+        </button>
+        <button
+          className="border p-2 w-20 rounded-full hover:bg-black"
+          onClick={logoutButtonHandler}
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
