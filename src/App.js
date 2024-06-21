@@ -61,6 +61,9 @@ function App() {
         <Route path={"/"}>
           <LandingPage exact />
         </Route>
+        <Route path="*" exact>
+          <Signin />
+        </Route>
       </Switch>
     </>
   );

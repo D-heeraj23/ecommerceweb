@@ -4,7 +4,7 @@ import LandingHeader from "../components/LandingHeader";
 const LandingPage = () => {
   return (
     <>
-      <div className="bg-[#212121] flex justify-between items-center p-3">
+      <div className="bg-[#212121] flex justify-between items-center p-3 overflow-hidden">
         <LandingHeader />
       </div>
       <div>

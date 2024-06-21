@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SyncLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
 
 const Cart = ({ refresh }) => {
   const [cart, setCart] = useState([]);
@@ -39,6 +40,7 @@ const Cart = ({ refresh }) => {
   }, [refresh, reff]);
 
   const removeDataHandler = async (key) => {
+    setLoading(true);
     try {
       const response = await fetch(
         `https://ecommerce-26aad-default-rtdb.firebaseio.com/items/${key}.json`,
@@ -54,6 +56,9 @@ const Cart = ({ refresh }) => {
       }
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
+      toast.success("item deleted from cart");
     }
   };
 
@@ -87,7 +92,7 @@ const Cart = ({ refresh }) => {
                     className="bg-red-500 p-1 rounded-md"
                     onClick={() => removeDataHandler(items.key)}
                   >
-                    Remove
+                    {loading ? <SyncLoader /> : "Remove"}
                   </button>
                   <div
                     className="w-full bg-zinc-900"
@@ -99,6 +104,7 @@ const Cart = ({ refresh }) => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

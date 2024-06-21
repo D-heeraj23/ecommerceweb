@@ -8,24 +8,24 @@ import { useGSAP } from "@gsap/react";
 const LandingCon = () => {
   useGSAP(() => {
     gsap.from("#image-girl", {
-      y: 700,
+      y: 800,
       duration: 1,
       delay: 2,
     });
     gsap.from("#image-boy", {
-      y: 700,
+      y: 800,
       duration: 1.3,
       delay: 3,
     });
     gsap.from("#image-watch", {
-      y: 700,
+      y: 800,
       duration: 1.5,
       delay: 4,
     });
   }, []);
 
   return (
-    <div className="bg-[#212121] h-screen w-full relative">
+    <div className="bg-[#212121] h-screen w-full relative overflow-hidden">
       <div className="w-[26rem] p-7 ml-20 h-[39rem] flex flex-col justify-between">
         <div>
           <h1 className="text-slate-300 text-4xl">
