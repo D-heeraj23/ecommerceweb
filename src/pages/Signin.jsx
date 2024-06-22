@@ -15,6 +15,7 @@ const Signin = () => {
 
   const signinHandler = async (e) => {
     e.preventDefault();
+    localStorage.setItem("email", emailInputRef.current.value);
 
     setIsLoading(true);
     try {

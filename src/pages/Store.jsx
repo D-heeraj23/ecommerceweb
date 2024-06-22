@@ -1,4 +1,3 @@
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { SyncLoader } from "react-spinners";
@@ -47,8 +46,8 @@ const productsArr = [
 
 const Store = (props) => {
   const [loadingStates, setLoadingStates] = useState({});
+  const email = localStorage.getItem("email").replace(".", ",");
 
-  const notify = () => toast.success("added to cart");
   const addToCart = async (item) => {
     setLoadingStates((prevState) => ({
       //for individual button loading state
@@ -59,7 +58,7 @@ const Store = (props) => {
     try {
       //this part is for if the product already exist in the firbase and to increase the quantity
       const response = await fetch(
-        "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json"
+        `https://ecommerce-26aad-default-rtdb.firebaseio.com/${email}.json`
       );
       if (!response.ok) {
         throw new Error("something went wrong");
@@ -84,7 +83,7 @@ const Store = (props) => {
           quantity: data[existingItemKey].quantity + 1,
         };
         const updateResponse = await fetch(
-          `https://ecommerce-26aad-default-rtdb.firebaseio.com/items/${existingItemKey}.json`,
+          `https://ecommerce-26aad-default-rtdb.firebaseio.com/${email}/${existingItemKey}.json`,
           {
             method: "PUT",
             body: JSON.stringify(updatedItem),
@@ -102,7 +101,7 @@ const Store = (props) => {
         };
 
         const addResponse = await fetch(
-          "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json",
+          `https://ecommerce-26aad-default-rtdb.firebaseio.com/${email}.json`,
           {
             method: "POST",
             body: JSON.stringify(itemWithQuantity),
@@ -120,13 +119,11 @@ const Store = (props) => {
         ...prevState,
         [item.id]: false,
       }));
-      notify();
     }
   };
 
   return (
     <>
-      <ToastContainer position="top-center" autoClose={2000} />
       <div className="bg-gray-500 p-8 mt-10">
         <h1 className="text-6xl font-bold text-center text-white">
           The Generics

@@ -6,13 +6,14 @@ const Cart = ({ refresh }) => {
   const [cart, setCart] = useState([]);
   const [reff, setReff] = useState(false);
   const [loading, setLoading] = useState(false);
+  const email = localStorage.getItem("email").replace(".", ",");
 
   useEffect(() => {
     const fetchCartData = async () => {
       setLoading(true);
       try {
         const res = await fetch(
-          "https://ecommerce-26aad-default-rtdb.firebaseio.com/items.json"
+          `https://ecommerce-26aad-default-rtdb.firebaseio.com/${email}.json`
         );
         if (!res.ok) {
           throw new Error("something went wrong");
@@ -43,7 +44,7 @@ const Cart = ({ refresh }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://ecommerce-26aad-default-rtdb.firebaseio.com/items/${key}.json`,
+        `https://ecommerce-26aad-default-rtdb.firebaseio.com/${email}/${key}.json`,
         {
           method: "DELETE",
         }

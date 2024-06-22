@@ -25,8 +25,6 @@ const Signup = () => {
       return;
     }
 
-    localStorage.setItem("name", nameInputRef.current.value);
-
     try {
       setIsLoading(true);
       const resposne = await fetch(
