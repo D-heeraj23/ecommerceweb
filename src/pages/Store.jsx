@@ -6,40 +6,26 @@ import { Link } from "react-router-dom";
 const productsArr = [
   {
     id: "1",
-
     title: "Colors",
-
     price: 100,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
   },
-
   {
     id: "2",
-
     title: "Black and white Colors",
-
     price: 50,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
   },
-
   {
     id: "3",
-
     title: "Yellow and Black Colors",
-
     price: 70,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
   },
-
   {
     id: "4",
     title: "Blue Color",
-
     price: 100,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
 ];
@@ -50,13 +36,11 @@ const Store = (props) => {
 
   const addToCart = async (item) => {
     setLoadingStates((prevState) => ({
-      //for individual button loading state
       ...prevState,
       [item.id]: true,
     }));
 
     try {
-      //this part is for if the product already exist in the firbase and to increase the quantity
       const response = await fetch(
         `https://ecommerce-26aad-default-rtdb.firebaseio.com/${email}.json`
       );
@@ -67,7 +51,6 @@ const Store = (props) => {
       let itemExists = false;
       let existingItemKey = null;
 
-      // Check if item already exists in the cart
       for (const key in data) {
         if (data[key].id === item.id) {
           itemExists = true;
@@ -77,7 +60,6 @@ const Store = (props) => {
       }
 
       if (itemExists && existingItemKey) {
-        // Update the quantity of the existing item
         const updatedItem = {
           ...data[existingItemKey],
           quantity: data[existingItemKey].quantity + 1,
@@ -93,11 +75,9 @@ const Store = (props) => {
           throw new Error("something went wrong");
         }
       } else {
-        //this else part is for if there is no product on firebase its gonna add a new product
         const itemWithQuantity = {
-          // Add a new key value quantity to the product array
           ...item,
-          quantity: 1, // Hardcoded quantity
+          quantity: 1,
         };
 
         const addResponse = await fetch(
@@ -129,29 +109,29 @@ const Store = (props) => {
           The Generics
         </h1>
       </div>
-      <div className="grid grid-cols-2 gap-10 m-5 p-20">
+      <div className="grid grid-cols-1 gap-10 m-5 p-5 md:grid-cols-2 lg:grid-cols-3">
         {productsArr.map((item, i) => {
           return (
-            <div key={i} className="flex flex-col items-center mb-4">
+            <div key={i} className="flex flex-col items-center mb-10">
               <p className="font-bold">Album {i + 1}</p>
               <Link to={`/store/product-detail/${item.title}`}>
                 <img
                   src={item.imageUrl}
                   alt="product"
-                  className="mb-2 rounded-xl hover:rounded-none"
+                  className="mb-2 rounded-xl hover:rounded-none w-full"
                 />
               </Link>
               <div className="text-center">
                 <p className="font-bold">{item.title}</p>
-                <p className="text-gray-700">Price :{item.price}</p>
+                <p className="text-gray-700">Price: ${item.price}</p>
               </div>
               <div>
                 <button
                   className="bg-slate-800 p-2 rounded-md text-white w-48 h-14"
-                  onClick={() => addToCart(item)} // item has id ,title ,imageurl,price which is from dummy array
+                  onClick={() => addToCart(item)}
                 >
                   {loadingStates[item.id] ? (
-                    <div className="flex items center justify-center">
+                    <div className="flex items-center justify-center">
                       <SyncLoader color="white" />
                     </div>
                   ) : (

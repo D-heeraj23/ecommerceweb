@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SyncLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = ({ refresh }) => {
   const [cart, setCart] = useState([]);
@@ -59,14 +60,14 @@ const Cart = ({ refresh }) => {
       console.log(error.message);
     } finally {
       setLoading(false);
-      toast.success("item deleted from cart");
+      toast.success("Item deleted from cart");
     }
   };
 
   return (
-    <div className="w-1/4 h-screen bg-zinc-50 fixed top-[3.6rem] right-0 z-10 mt-4">
+    <div className="fixed top-[3.6rem] right-0 z-10 mt-4 w-full md:w-1/4 h-full md:h-screen bg-zinc-50">
       {loading ? (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-full">
           <SyncLoader />
         </div>
       ) : (
@@ -82,13 +83,13 @@ const Cart = ({ refresh }) => {
           <div>
             {cart.map((items, i) => (
               <div className="flex justify-around items-center" key={i}>
-                <div className="w-1/4 mt-10 ">
+                <div className="w-1/4 mt-10">
                   <img src={items.imageUrl} alt="cartimage" />
                 </div>
                 <div className="w-1/2">
-                  <p>Name:{items.title}</p>
-                  <p>Price:{items.price}</p>
-                  <p> quantity:{items.quantity}</p>
+                  <p>Name: {items.title}</p>
+                  <p>Price: {items.price}</p>
+                  <p>Quantity: {items.quantity}</p>
                   <button
                     className="bg-red-500 p-1 rounded-md"
                     onClick={() => removeDataHandler(items.key)}
