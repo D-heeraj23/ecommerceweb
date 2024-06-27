@@ -24,11 +24,13 @@ const LandingCon = () => {
     });
   }, []);
 
+  //
+
   return (
-    <div className="bg-[#212121] h-screen w-full relative overflow-hidden">
-      <div className="w-[26rem] p-7 ml-20 h-[39rem] flex flex-col justify-between">
+    <div className=" bg-[#212121] sm:bg-[#212121] h-screen w-full relative overflow-hidden">
+      <div className="p-3 flex flex-col lg:w-[26rem] lg:p-7 lg:ml-20 lg:h-[39rem] lg:flex lg:flex-col lg:justify-between">
         <div>
-          <h1 className="text-slate-300 text-4xl">
+          <h1 className="text-slate-300 text-lg lg:text-slate-300 lg:text-4xl">
             Welcome To the Ecommerce Website Get The Best Product In Cheap
             Price.
           </h1>
@@ -46,27 +48,27 @@ const LandingCon = () => {
         </div>
       </div>
 
-      <div>
+      <div className="hidden lg:block">
         <img
           src={girl}
           alt="girl"
-          className="w-[12%] absolute right-40 top-5"
+          className="w-[12%] absolute right-40 top-5 object-cover"
           id="image-girl"
         />
       </div>
-      <div>
+      <div className="hidden lg:block">
         <img
           src={boy}
           alt="boy"
-          className="w-[12%] absolute top-[17rem] right-[20rem]"
+          className="w-[12%] absolute top-[17rem] right-[20rem] object-cover"
           id="image-boy"
         />
       </div>
-      <div>
+      <div className="hidden lg:block">
         <img
           src={watch}
           alt="watch"
-          className="w-[12%] absolute top-5 right-[30rem] h-[15rem]"
+          className="w-[12%] absolute top-5 right-[30rem] h-[15rem] object-cover"
           id="image-watch"
         />
       </div>

@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, Suspense, lazy } from "react";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
@@ -7,11 +7,15 @@ import Cart from "./components/Cart";
 import CartContext from "./context/CartContext";
 import AuthContext from "./context/AuthContext";
 import ContactUs from "./pages/ContactUs";
-import ProductDetail from "./components/ProductDetail";
+// import ProductDetail from "./components/ProductDetail";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import Some from "./pages/Some";
+import { SyncLoader } from "react-spinners";
+
+const LazyProductDetail = lazy(() => import("./components/ProductDetail"));
 
 function App() {
   const { isCartOpen } = useContext(CartContext);
@@ -48,10 +52,21 @@ function App() {
           </Route>
         )}
         {isLoggedIn && (
-          <Route path={"/store/product-detail/:id"}>
-            <ProductDetail />
-          </Route>
+          <Suspense
+            fallback={
+              <div className="h-screen w-full flex items-center justify-center">
+                <SyncLoader />
+              </div>
+            }
+          >
+            <Route path={"/store/product-detail/:id"}>
+              <LazyProductDetail />
+            </Route>
+          </Suspense>
         )}
+        <Route path={"/some"}>
+          <Some />
+        </Route>
         <Route path={"/signup"}>
           <Signup />
         </Route>

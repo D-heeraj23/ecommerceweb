@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <div className="bg-zinc-800 text-white flex items-center justify-between p-4 w-full fixed top-0 z-50">
       <div>
-        <h1 className="text-xl font-bold">Ecommerce Store</h1>
+        <h1 className="lg:text-3xl border-b">M.E.S</h1>
       </div>
 
       <ul
@@ -53,22 +53,28 @@ const Navbar = () => {
             ContactUs
           </NavLink>
         </li>
+        <li className="mt-2 md:mt-0">
+          <NavLink to="/some" activeClassName={classes.active}>
+            Some
+          </NavLink>
+        </li>
       </ul>
+      {/* //border p-2 w-20 rounded-full hover:bg-black */}
       <div className="space-x-5">
         <button
           onClick={cartHandler}
-          className="border p-2 w-20 rounded-full hover:bg-black"
+          className="w-1/4 lg:border lg:p-2 lg:w-20 lg:rounded-full lg:hover:bg-black"
         >
           {isCartOpen ? "X" : "Cart"}
         </button>
         <button
-          className="border p-2 w-20 rounded-full hover:bg-black"
+          className="w-1/4 lg:border lg:p-2 lg:w-20 lg:rounded-full lg:hover:bg-black"
           onClick={logoutButtonHandler}
         >
           Logout
         </button>
         <button
-          className="md:hidden border p-2 rounded-full hover:bg-black"
+          className="md:hidden w-1/4 lg:border lg:p-2 lg:w-20 lg:rounded-full lg:hover:bg-black"
           onClick={toggleMenuHandler}
         >
           {isMenuOpen ? "Close" : "Menu"}

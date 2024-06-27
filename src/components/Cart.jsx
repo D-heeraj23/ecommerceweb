@@ -106,7 +106,7 @@ const Cart = ({ refresh }) => {
           </div>
         </div>
       )}
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };
